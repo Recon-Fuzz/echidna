@@ -91,13 +91,13 @@ jobs:
       - name: Download binaries
         uses: actions/download-artifact@v4
         with:
-          pattern: echidna-redistributable-2.2.4-recon
+          pattern: echidna-redistributable-*
           merge-multiple: true
 
       - name: Sign binaries
         uses: sigstore/gh-action-sigstore-python@v3.0.0
         with:
-          inputs: ./echidna-2.2.4-recon.tar.gz
+          inputs: ./echidna-*.tar.gz
 
       - name: Create GitHub release and upload binaries
         uses: softprops/action-gh-release@v2.0.8
@@ -105,5 +105,5 @@ jobs:
           draft: true
           name: "Echidna ${{ needs.nixBuild.outputs.version }}"
           files: |
-            ./echidna-2.2.4-recon.tar.gz
-            ./echidna-2.2.4-recon.tar.gz.sigstore.json
+            ./echidna-*.tar.gz
+            ./echidna-*.tar.gz.sigstore.json
